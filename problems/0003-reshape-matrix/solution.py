@@ -15,26 +15,21 @@ def reshape_matrix(a: list[list[int|float]], new_shape: tuple[int, int]) -> list
 	#no numpy method (took time and alot of drawings)
 	reshaped_matrix = []
 	flat_list = []
-	for_list = []
-	if (len(a)*len(a[0])) != new_shape[0]*new_shape[1]:
+	rows, cols = new_shape
+
+	if (len(a)*len(a[0])) != rows*cols:
 		return []
+
 	for i in range(len(a)):
 		for j in range(len(a[0])):
 			flat_list.append(a[i][j])
-	j = 1
-	i = 0
-	for _ in range(len(flat_list)):
-		if j == (len(flat_list) + 1):
-			break
-		else:
-			new_list = []
-			new_list.append(flat_list[i])
-			new_list.append(flat_list[j])
-			for_list.append(new_list)
-			new_list = []
-			i = i + 2
-			j = j + 2
-		
-	return for_list
-	return reshape_matrix
+
+	for i in range(rows):
+		new_row = []
+		for j in range(cols):
+			value = i * cols + j
+			new_row.append(flat_list[value])
+		reshaped_matrix.append(new_row)
+
+	return reshaped_matrix
 	
